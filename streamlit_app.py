@@ -3,8 +3,9 @@ import openai
 import streamlit as st
 from parse_hh import get_candidate_info, get_job_description
 
-# Получение API-ключа из файла secrets.toml
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+client = openai.Client(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
 
 SYSTEM_PROMPT = """
 Проскорь кандидата, насколько он подходит для данной вакансии.
