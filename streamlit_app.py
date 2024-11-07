@@ -1,15 +1,13 @@
 import os
-
 import openai
 import streamlit as st
-
 from parse_hh import get_candidate_info, get_job_description
 
 # Получение API ключа из переменной окружения
 api_key = os.getenv("OPENAI_API_KEY")
 
-# Инициализация клиента OpenAI с использованием API ключа
-client = openai.Client(api_key=api_key)
+# Установка API ключа напрямую в модуле openai
+openai.api_key = api_key
 
 SYSTEM_PROMPT = """
 Проскорь кандидата, насколько он подходит для данной вакансии.
@@ -20,8 +18,8 @@ SYSTEM_PROMPT = """
 """.strip()
 
 def request_gpt(system_prompt, user_prompt):
-    response = client.chat.completions.create(
-        model="gpt-4o",
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
@@ -31,16 +29,13 @@ def request_gpt(system_prompt, user_prompt):
     )
     return response.choices[0].message.content
 
-
 st.title("CV Scoring App")
 
 job_description_url = st.text_area("Enter the job description url")
-
 cv_url = st.text_area("Enter the CV url")
 
 if st.button("Score CV"):
     with st.spinner("Scoring CV..."):
-
         job_description = get_job_description(job_description_url)
         cv = get_candidate_info(cv_url)
 
