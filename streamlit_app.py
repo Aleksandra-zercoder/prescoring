@@ -6,7 +6,7 @@ import streamlit as st
 from parse_hh import get_candidate_info, get_job_description
 
 client = openai.Client(
-    api_key="sk-proj-Vd5ksn9ms0M21nCNVBPz7x32260REP3PmqULCh3CDbd_eEiOZiG2C-vWU-KpN0QQuK_b0My766bORvcQA"
+    OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 )
 
 SYSTEM_PROMPT = """
