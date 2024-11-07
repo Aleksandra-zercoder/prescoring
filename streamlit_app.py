@@ -5,9 +5,11 @@ import streamlit as st
 
 from parse_hh import get_candidate_info, get_job_description
 
-client = openai.Client(
-    openai.api_key = os.getenv("OPENAI_API_KEY")
-)
+# Получение API ключа из переменной окружения
+api_key = os.getenv("OPENAI_API_KEY")
+
+# Инициализация клиента OpenAI с использованием API ключа
+client = openai.Client(api_key=api_key)
 
 SYSTEM_PROMPT = """
 Проскорь кандидата, насколько он подходит для данной вакансии.
