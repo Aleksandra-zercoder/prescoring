@@ -3,10 +3,10 @@ import openai
 import streamlit as st
 from parse_hh import get_candidate_info, get_job_description
 
-# Получение API ключа из переменной окружения
-api_key = os.getenv("OPENAI_API_KEY")
+# Получение API-ключа из secrets.toml
+api_key = st.secrets["openai"]["api_key"]
 
-# Установка API ключа напрямую в модуле openai
+# Установка API-ключа для OpenAI
 openai.api_key = api_key
 
 SYSTEM_PROMPT = """
