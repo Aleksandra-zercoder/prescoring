@@ -64,7 +64,7 @@ st.title("Оценка кандидата")
 job_description_url = st.text_input("Введите ссылку на описание вакансии", value=st.session_state.job_description)
 cv_url = st.text_input("Введите ссылку на резюме кандидата или текст резюме", value=st.session_state.cv_info)
 
-# Сохраняем значения в session_state
+# Обновляем session_state с новыми значениями
 st.session_state.job_description = job_description_url
 st.session_state.cv_info = cv_url
 
