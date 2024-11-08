@@ -1,4 +1,3 @@
-import os
 import openai
 import streamlit as st
 from parse_hh import get_candidate_info, get_job_description
@@ -14,11 +13,17 @@ SYSTEM_PROMPT = """
 Потом представь результат в виде оценки от 1 до 10.
 """.strip()
 
+# Инициализация session_state
+if 'job_description' not in st.session_state:
+    st.session_state.job_description = ""
+if 'cv_info' not in st.session_state:
+    st.session_state.cv_info = ""
+
 # Функция для запроса к GPT
 def request_gpt(system_prompt, user_prompt):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # используем правильное имя модели
+            model="gpt-4o",  # используем правильное имя модели
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
@@ -55,9 +60,15 @@ def evaluate_candidate(job_description_url, cv_url):
 # Интерфейс Streamlit
 st.title("Оценка кандидата")
 
-job_description_url = st.text_input("Введите ссылку на описание вакансии")
-cv_url = st.text_input("Введите ссылку на резюме кандидата или текст резюме")
+# Ввод данных
+job_description_url = st.text_input("Введите ссылку на описание вакансии", value=st.session_state.job_description)
+cv_url = st.text_input("Введите ссылку на резюме кандидата или текст резюме", value=st.session_state.cv_info)
+
+# Сохраняем значения в session_state
+st.session_state.job_description = job_description_url
+st.session_state.cv_info = cv_url
 
 if st.button("Оценить"):
     evaluation_result = evaluate_candidate(job_description_url, cv_url)
     st.write("Результат оценки:", evaluation_result)
+
