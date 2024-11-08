@@ -13,17 +13,17 @@ SYSTEM_PROMPT = """
 Потом представь результат в виде оценки от 1 до 10.
 """.strip()
 
-# Инициализация session_state
+# Инициализация ключей в session_state для обработки динамических данных
 if 'job_description' not in st.session_state:
-    st.session_state.job_description = ""
+    st.session_state.job_description = ''
 if 'cv_info' not in st.session_state:
-    st.session_state.cv_info = ""
+    st.session_state.cv_info = ''
 
 # Функция для запроса к GPT
 def request_gpt(system_prompt, user_prompt):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4o",  # используем правильное имя модели
+            model="gpt-4",  # используем правильное имя модели
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
