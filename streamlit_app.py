@@ -13,7 +13,7 @@ SYSTEM_PROMPT = """
 Потом представь результат в виде оценки от 1 до 10.
 """.strip()
 
-# Инициализация ключей в session_state для обработки динамических данных
+# Инициализация session_state для всех необходимых ключей
 if 'job_description' not in st.session_state:
     st.session_state.job_description = ''
 if 'cv_info' not in st.session_state:
@@ -60,7 +60,7 @@ def evaluate_candidate(job_description_url, cv_url):
 # Интерфейс Streamlit
 st.title("Оценка кандидата")
 
-# Ввод данных
+# Инициализация значений для текстовых полей с использованием session_state
 job_description_url = st.text_input("Введите ссылку на описание вакансии", value=st.session_state.job_description)
 cv_url = st.text_input("Введите ссылку на резюме кандидата или текст резюме", value=st.session_state.cv_info)
 
@@ -71,4 +71,5 @@ st.session_state.cv_info = cv_url
 if st.button("Оценить"):
     evaluation_result = evaluate_candidate(job_description_url, cv_url)
     st.write("Результат оценки:", evaluation_result)
+
 
