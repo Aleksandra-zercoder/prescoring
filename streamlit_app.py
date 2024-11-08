@@ -23,7 +23,7 @@ if 'cv_info' not in st.session_state:
 def request_gpt(system_prompt, user_prompt):
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-4",  # используем правильное имя модели
+            model="gpt-4o",  # используем правильное имя модели
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
