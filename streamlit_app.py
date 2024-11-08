@@ -13,7 +13,7 @@ SYSTEM_PROMPT = """
 Потом представь результат в виде оценки от 1 до 10.
 """.strip()
 
-# Инициализация session_state для всех необходимых ключей
+# Инициализация session_state для всех необходимых ключей с дефолтными значениями
 if 'job_description' not in st.session_state:
     st.session_state.job_description = ''
 if 'cv_info' not in st.session_state:
@@ -71,5 +71,4 @@ st.session_state.cv_info = cv_url
 if st.button("Оценить"):
     evaluation_result = evaluate_candidate(job_description_url, cv_url)
     st.write("Результат оценки:", evaluation_result)
-
 
